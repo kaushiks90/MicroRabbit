@@ -30,7 +30,10 @@ namespace MicroRabbit.Infra.Bus
         }
         public void Publish<T>(T @event) where T : Event
         {
-            ConnectionFactory factory = new ConnectionFactory() { HostName = "localhost" };
+            ConnectionFactory factory = new ConnectionFactory
+            {
+                Uri = new Uri("amqp://gmdmyhyj:h1iXhJpdJFQZYWoFV5n52cYIwVEv0hRq@spider.rmq.cloudamqp.com/gmdmyhyj")
+            };
             using (IConnection connection = factory.CreateConnection())
             using (IModel channel = connection.CreateModel())
             {
@@ -72,7 +75,9 @@ namespace MicroRabbit.Infra.Bus
         {
             ConnectionFactory factory = new ConnectionFactory()
             {
-                HostName = "localhost",
+                Uri = new Uri("http://localhost:8080/"),
+                UserName = "guest",
+                Password = "guest",
                 DispatchConsumersAsync = true
             };
             IConnection connection = factory.CreateConnection();
